@@ -8395,7 +8395,6 @@ class SizeLimit {
                     total: loading + running
                 };
             }
-            result.name = "branch";
             return Object.assign(Object.assign({}, current), { [result.name]: Object.assign({ name: result.name, size: +result.size }, time) });
         }, {});
     }

@@ -118,7 +118,7 @@ class SizeLimit {
             total: loading + running
           };
         }
-        result.name = "branch";
+
         return {
           ...current,
           [result.name]: {
