@@ -2394,7 +2394,7 @@ function run() {
             let base;
             let current;
             try {
-                base = limit.parseResults(pr.base.ref, baseOutput);
+                base = limit.parseResults(null, baseOutput);
                 current = limit.parseResults(pr.base.ref, output);
             }
             catch (error) {
@@ -8386,7 +8386,12 @@ class SizeLimit {
         const results = JSON.parse(output);
         return results.reduce((current, result) => {
             let time = {};
-            result.name = branch;
+            if (branch) {
+                result.name = branch;
+            }
+            else {
+                result.name = "PR branch";
+            }
             if (result.loading !== undefined && result.running !== undefined) {
                 const loading = +result.loading;
                 const running = +result.running;

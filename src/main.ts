@@ -71,7 +71,7 @@ async function run() {
     let current;
 
     try {
-      base = limit.parseResults(pr.base.ref, baseOutput);
+      base = limit.parseResults(null, baseOutput);
       current = limit.parseResults(pr.base.ref, output);
     } catch (error) {
       console.log(

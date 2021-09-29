@@ -106,7 +106,12 @@ class SizeLimit {
     return results.reduce(
       (current: { [name: string]: IResult }, result: any) => {
         let time = {};
-        result.name = branch;
+        if (branch) {
+          result.name = branch;
+        } else {
+          result.name = "PR branch";
+        }
+
         if (result.loading !== undefined && result.running !== undefined) {
           const loading = +result.loading;
           const running = +result.running;
