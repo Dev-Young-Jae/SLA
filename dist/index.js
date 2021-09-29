@@ -8362,7 +8362,7 @@ class SizeLimit {
         if (value === 0) {
             return `${formatted}%`;
         }
-        return `${formatted}% 🔽`;
+        return `${formatted}% 📉`;
     }
     formatLine(value, change) {
         return `${value} (${change})`;
@@ -8384,7 +8384,6 @@ class SizeLimit {
     }
     parseResults(output) {
         const results = JSON.parse(output);
-        console.log("results >>", results);
         return results.reduce((current, result) => {
             let time = {};
             if (result.loading !== undefined && result.running !== undefined) {
@@ -8396,6 +8395,7 @@ class SizeLimit {
                     total: loading + running
                 };
             }
+            result.name = "branch";
             return Object.assign(Object.assign({}, current), { [result.name]: Object.assign({ name: result.name, size: +result.size }, time) });
         }, {});
     }

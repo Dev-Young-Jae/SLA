@@ -57,7 +57,7 @@ class SizeLimit {
       return `${formatted}%`;
     }
 
-    return `${formatted}% 🔽`;
+    return `${formatted}% 📉`;
   }
 
   private formatLine(value: string, change: string) {
@@ -103,7 +103,7 @@ class SizeLimit {
 
   parseResults(output: string): { [name: string]: IResult } {
     const results = JSON.parse(output);
-    console.log("results >>", results);
+
     return results.reduce(
       (current: { [name: string]: IResult }, result: any) => {
         let time = {};
@@ -118,7 +118,7 @@ class SizeLimit {
             total: loading + running
           };
         }
-
+        result.name = "branch";
         return {
           ...current,
           [result.name]: {
