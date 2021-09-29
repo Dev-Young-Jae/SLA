@@ -55,7 +55,7 @@ class Term {
         cwd: directory
       });
     }
-
+    console.log("output >> ", output);
     return {
       status,
       output

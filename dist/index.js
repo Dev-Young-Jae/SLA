@@ -8413,8 +8413,6 @@ class SizeLimit {
         const fields = names.map((name, idx) => {
             const baseResult = base[name] || EmptyResult;
             const currentResult = current[name] || EmptyResult;
-            console.log("baseResult >> ", idx, baseResult);
-            console.log("currentResult >> ", idx, currentResult);
             if (isSize) {
                 return this.formatSizeResult(name, baseResult, currentResult);
             }
@@ -9745,6 +9743,7 @@ class Term {
                     cwd: directory
                 });
             }
+            console.log("output >> ", output);
             return {
                 status,
                 output
