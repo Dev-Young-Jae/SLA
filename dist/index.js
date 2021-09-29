@@ -8384,7 +8384,7 @@ class SizeLimit {
     }
     parseResults(output) {
         const results = JSON.parse(output);
-        console.log(results);
+        console.log("results >>", results);
         return results.reduce((current, result) => {
             let time = {};
             if (result.loading !== undefined && result.running !== undefined) {
