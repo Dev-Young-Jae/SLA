@@ -11,10 +11,10 @@ interface IResult {
 
 const EmptyResult = {
   name: "-",
-  size: 0,
-  running: 0,
-  loading: 0,
-  total: 0
+  size: 7,
+  running: 7,
+  loading: 7,
+  total: 7
 };
 
 class SizeLimit {
@@ -42,7 +42,7 @@ class SizeLimit {
 
   private formatChange(base: number = 0, current: number = 0): string {
     if (base === 0) {
-      return "+100% 🔺";
+      return "+100% 📈";
     }
 
     const value = ((current - base) / base) * 100;
@@ -50,7 +50,7 @@ class SizeLimit {
       (Math.sign(value) * Math.ceil(Math.abs(value) * 100)) / 100;
 
     if (value > 0) {
-      return `+${formatted}% 🔺`;
+      return `+${formatted}% 📈`;
     }
 
     if (value === 0) {

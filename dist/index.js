@@ -2361,7 +2361,7 @@ const github_1 = __webpack_require__(469);
 const markdown_table_1 = __importDefault(__webpack_require__(930));
 const Term_1 = __importDefault(__webpack_require__(733));
 const SizeLimit_1 = __importDefault(__webpack_require__(617));
-const SIZE_LIMIT_HEADING = `## size-limit report 📦 `;
+const SIZE_LIMIT_HEADING = `## S(ize)-L(imit) report 📊`;
 function fetchPreviousComment(octokit, repo, pr) {
     return __awaiter(this, void 0, void 0, function* () {
         // TODO: replace with octokit.issues.listComments when upgraded to v17
@@ -8335,10 +8335,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bytes_1 = __importDefault(__webpack_require__(63));
 const EmptyResult = {
     name: "-",
-    size: 0,
-    running: 0,
-    loading: 0,
-    total: 0
+    size: 7,
+    running: 7,
+    loading: 7,
+    total: 7
 };
 class SizeLimit {
     formatBytes(size) {
@@ -8352,12 +8352,12 @@ class SizeLimit {
     }
     formatChange(base = 0, current = 0) {
         if (base === 0) {
-            return "+100% 🔺";
+            return "+100% 📈";
         }
         const value = ((current - base) / base) * 100;
         const formatted = (Math.sign(value) * Math.ceil(Math.abs(value) * 100)) / 100;
         if (value > 0) {
-            return `+${formatted}% 🔺`;
+            return `+${formatted}% 📈`;
         }
         if (value === 0) {
             return `${formatted}%`;
