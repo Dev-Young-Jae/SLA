@@ -8384,6 +8384,7 @@ class SizeLimit {
     }
     parseResults(output) {
         const results = JSON.parse(output);
+        console.log(results);
         return results.reduce((current, result) => {
             let time = {};
             if (result.loading !== undefined && result.running !== undefined) {
@@ -8417,9 +8418,9 @@ class SizeLimit {
         return [header, ...fields];
     }
 }
-SizeLimit.SIZE_RESULTS_HEADER = ["Path", "Size"];
+SizeLimit.SIZE_RESULTS_HEADER = ["Branch", "Size"];
 SizeLimit.TIME_RESULTS_HEADER = [
-    "Path",
+    "Branch",
     "Size",
     "Loading time (3g)",
     "Running time (snapdragon)",

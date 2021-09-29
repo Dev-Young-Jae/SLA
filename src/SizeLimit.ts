@@ -18,10 +18,10 @@ const EmptyResult = {
 };
 
 class SizeLimit {
-  static SIZE_RESULTS_HEADER = ["Path", "Size"];
+  static SIZE_RESULTS_HEADER = ["Branch", "Size"];
 
   static TIME_RESULTS_HEADER = [
-    "Path",
+    "Branch",
     "Size",
     "Loading time (3g)",
     "Running time (snapdragon)",
@@ -103,7 +103,7 @@ class SizeLimit {
 
   parseResults(output: string): { [name: string]: IResult } {
     const results = JSON.parse(output);
-
+    console.log(results);
     return results.reduce(
       (current: { [name: string]: IResult }, result: any) => {
         let time = {};
