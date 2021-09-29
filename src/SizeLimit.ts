@@ -11,10 +11,10 @@ interface IResult {
 
 const EmptyResult = {
   name: "-",
-  size: 7,
-  running: 7,
-  loading: 7,
-  total: 7
+  size: 0,
+  running: 0,
+  loading: 0,
+  total: 0
 };
 
 class SizeLimit {
@@ -137,12 +137,15 @@ class SizeLimit {
     current: { [name: string]: IResult }
   ): Array<Array<string>> {
     const names = [...new Set([...Object.keys(base), ...Object.keys(current)])];
+    console.log(base, names);
     const isSize = names.some(
       (name: string) => current[name] && current[name].total === undefined
     );
+    console.log(base, isSize);
     const header = isSize
       ? SizeLimit.SIZE_RESULTS_HEADER
       : SizeLimit.TIME_RESULTS_HEADER;
+    console.log(base, header);
     const fields = names.map((name: string) => {
       const baseResult = base[name] || EmptyResult;
       const currentResult = current[name] || EmptyResult;
@@ -152,7 +155,7 @@ class SizeLimit {
       }
       return this.formatTimeResult(name, baseResult, currentResult);
     });
-
+    console.log(base, ...fields);
     return [header, ...fields];
   }
 }
