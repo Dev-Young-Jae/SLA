@@ -59,7 +59,7 @@ async function run() {
       directory
     );
     const { output: baseOutput } = await term.execSizeLimit(
-      pr.base.ref,
+      pr.base,
       null,
       buildScript,
       cleanScript,

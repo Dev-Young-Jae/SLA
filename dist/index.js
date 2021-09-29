@@ -2390,7 +2390,7 @@ function run() {
             const term = new Term_1.default();
             const limit = new SizeLimit_1.default();
             const { status, output } = yield term.execSizeLimit(null, skipStep, buildScript, cleanScript, windowsVerbatimArguments, directory);
-            const { output: baseOutput } = yield term.execSizeLimit(pr.base.ref, null, buildScript, cleanScript, windowsVerbatimArguments, directory);
+            const { output: baseOutput } = yield term.execSizeLimit(pr.base, null, buildScript, cleanScript, windowsVerbatimArguments, directory);
             let base;
             let current;
             try {
