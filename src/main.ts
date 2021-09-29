@@ -59,7 +59,7 @@ async function run() {
       directory
     );
     const { output: baseOutput } = await term.execSizeLimit(
-      pr.base,
+      pr.base.ref,
       null,
       buildScript,
       cleanScript,
@@ -71,8 +71,8 @@ async function run() {
     let current;
 
     try {
-      base = limit.parseResults(baseOutput);
-      current = limit.parseResults(output);
+      base = limit.parseResults(pr.base.ref, baseOutput);
+      current = limit.parseResults(pr.base.ref, output);
     } catch (error) {
       console.log(
         "Error parsing size-limit output. The output should be a json."

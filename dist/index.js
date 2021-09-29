@@ -2390,12 +2390,12 @@ function run() {
             const term = new Term_1.default();
             const limit = new SizeLimit_1.default();
             const { status, output } = yield term.execSizeLimit(null, skipStep, buildScript, cleanScript, windowsVerbatimArguments, directory);
-            const { output: baseOutput } = yield term.execSizeLimit(pr.base, null, buildScript, cleanScript, windowsVerbatimArguments, directory);
+            const { output: baseOutput } = yield term.execSizeLimit(pr.base.ref, null, buildScript, cleanScript, windowsVerbatimArguments, directory);
             let base;
             let current;
             try {
-                base = limit.parseResults(baseOutput);
-                current = limit.parseResults(output);
+                base = limit.parseResults(pr.base.ref, baseOutput);
+                current = limit.parseResults(pr.base.ref, output);
             }
             catch (error) {
                 console.log("Error parsing size-limit output. The output should be a json.");
@@ -8382,10 +8382,11 @@ class SizeLimit {
             this.formatTime(current.total)
         ];
     }
-    parseResults(output) {
+    parseResults(branch, output) {
         const results = JSON.parse(output);
         return results.reduce((current, result) => {
             let time = {};
+            result.name = branch;
             if (result.loading !== undefined && result.running !== undefined) {
                 const loading = +result.loading;
                 const running = +result.running;

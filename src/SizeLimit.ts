@@ -101,13 +101,12 @@ class SizeLimit {
     ];
   }
 
-  parseResults(output: string): { [name: string]: IResult } {
+  parseResults(branch: string, output: string): { [name: string]: IResult } {
     const results = JSON.parse(output);
-
     return results.reduce(
       (current: { [name: string]: IResult }, result: any) => {
         let time = {};
-
+        result.name = branch;
         if (result.loading !== undefined && result.running !== undefined) {
           const loading = +result.loading;
           const running = +result.running;
