@@ -103,37 +103,45 @@ class SizeLimit {
 
   parseResults(branch: string, output: string): { [name: string]: IResult } {
     const results = JSON.parse(output);
-    return results.reduce(
-      (current: { [name: string]: IResult }, result: any) => {
-        let time = {};
-        if (branch) {
-          result.name = branch;
-        } else {
-          result.name = "PR branch";
-        }
 
-        if (result.loading !== undefined && result.running !== undefined) {
-          const loading = +result.loading;
-          const running = +result.running;
+    if (branch) {
+      results.name = branch;
+    } else {
+      results.name = "PR branch";
+    }
 
-          time = {
-            running,
-            loading,
-            total: loading + running
-          };
-        }
+    return results;
+    // return results.reduce(
+    //   (current: { [name: string]: IResult }, result: any) => {
+    //     let time = {};
+    //     if (branch) {
+    //       result.name = branch;
+    //     } else {
+    //       result.name = "PR branch";
+    //     }
 
-        return {
-          ...current,
-          [result.name]: {
-            name: result.name,
-            size: +result.size,
-            ...time
-          }
-        };
-      },
-      {}
-    );
+    //     if (result.loading !== undefined && result.running !== undefined) {
+    //       const loading = +result.loading;
+    //       const running = +result.running;
+
+    //       time = {
+    //         running,
+    //         loading,
+    //         total: loading + running
+    //       };
+    //     }
+
+    //     return {
+    //       ...current,
+    //       [result.name]: {
+    //         name: result.name,
+    //         size: +result.size,
+    //         ...time
+    //       }
+    //     };
+    //   },
+    //   {}
+    // );
   }
 
   formatResults(

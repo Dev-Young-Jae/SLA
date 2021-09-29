@@ -2394,8 +2394,8 @@ function run() {
             let base;
             let current;
             try {
-                base = limit.parseResults(null, baseOutput);
                 current = limit.parseResults(pr.base.ref, output);
+                base = limit.parseResults(null, baseOutput);
             }
             catch (error) {
                 console.log("Error parsing size-limit output. The output should be a json.");
@@ -8384,25 +8384,41 @@ class SizeLimit {
     }
     parseResults(branch, output) {
         const results = JSON.parse(output);
-        return results.reduce((current, result) => {
-            let time = {};
-            if (branch) {
-                result.name = branch;
-            }
-            else {
-                result.name = "PR branch";
-            }
-            if (result.loading !== undefined && result.running !== undefined) {
-                const loading = +result.loading;
-                const running = +result.running;
-                time = {
-                    running,
-                    loading,
-                    total: loading + running
-                };
-            }
-            return Object.assign(Object.assign({}, current), { [result.name]: Object.assign({ name: result.name, size: +result.size }, time) });
-        }, {});
+        if (branch) {
+            results.name = branch;
+        }
+        else {
+            results.name = "PR branch";
+        }
+        return results;
+        // return results.reduce(
+        //   (current: { [name: string]: IResult }, result: any) => {
+        //     let time = {};
+        //     if (branch) {
+        //       result.name = branch;
+        //     } else {
+        //       result.name = "PR branch";
+        //     }
+        //     if (result.loading !== undefined && result.running !== undefined) {
+        //       const loading = +result.loading;
+        //       const running = +result.running;
+        //       time = {
+        //         running,
+        //         loading,
+        //         total: loading + running
+        //       };
+        //     }
+        //     return {
+        //       ...current,
+        //       [result.name]: {
+        //         name: result.name,
+        //         size: +result.size,
+        //         ...time
+        //       }
+        //     };
+        //   },
+        //   {}
+        // );
     }
     formatResults(base, current) {
         const names = [...new Set([...Object.keys(base), ...Object.keys(current)])];
