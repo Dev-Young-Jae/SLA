@@ -8400,22 +8400,24 @@ class SizeLimit {
     }
     formatResults(base, current) {
         const names = [...new Set([...Object.keys(base), ...Object.keys(current)])];
-        console.log(base, names);
+        console.log("names >> ", base, names);
         const isSize = names.some((name) => current[name] && current[name].total === undefined);
-        console.log(base, isSize);
+        console.log("isSize >> ", base, isSize);
         const header = isSize
             ? SizeLimit.SIZE_RESULTS_HEADER
             : SizeLimit.TIME_RESULTS_HEADER;
-        console.log(base, header);
+        console.log("header >> ", base, header);
         const fields = names.map((name) => {
             const baseResult = base[name] || EmptyResult;
             const currentResult = current[name] || EmptyResult;
+            console.log("baseResult >> ", base, baseResult);
+            console.log("currentResult >> ", base, currentResult);
             if (isSize) {
                 return this.formatSizeResult(name, baseResult, currentResult);
             }
             return this.formatTimeResult(name, baseResult, currentResult);
         });
-        console.log(base, ...fields);
+        console.log("...fields >> ", base, ...fields);
         return [header, ...fields];
     }
 }
