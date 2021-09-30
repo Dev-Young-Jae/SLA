@@ -8378,7 +8378,7 @@ class SizeLimit {
             this.formaComparetLine(this.formatBytes(current.size - base.size), this.formatChange(base.size, current.size)),
             this.formaComparetLine(this.formatTime(current.loading - base.loading), this.formatChange(base.loading, current.loading)),
             this.formaComparetLine(this.formatTime(current.running - base.running), this.formatChange(base.running, current.running)),
-            this.formatTime(current.total)
+            this.formatTime(current.total + base.total)
         ];
     }
     parseResults(branch, output) {
@@ -8413,8 +8413,8 @@ class SizeLimit {
         const baseKey = Object.keys(base).toString();
         const currentResult = current[currentKey];
         const baseResult = base[baseKey];
-        const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
-        const prbranchTable = this.formatTimeResult(baseKey, baseResult);
+        const masterbranchTable = this.formatTimeResult(baseKey, baseResult);
+        const prbranchTable = this.formatTimeResult(currentKey, currentResult);
         const diffTable = this.formatCompareResult("Compare", currentResult, baseResult);
         return [header, masterbranchTable, prbranchTable, diffTable];
     }

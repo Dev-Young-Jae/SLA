@@ -85,7 +85,7 @@ class SizeLimit {
         this.formatTime(current.running - base.running),
         this.formatChange(base.running, current.running)
       ),
-      this.formatTime(current.total)
+      this.formatTime(current.total + base.total)
     ];
   }
 
@@ -144,8 +144,8 @@ class SizeLimit {
     const currentResult = current[currentKey];
     const baseResult = base[baseKey];
 
-    const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
-    const prbranchTable = this.formatTimeResult(baseKey, baseResult);
+    const masterbranchTable = this.formatTimeResult(baseKey, baseResult);
+    const prbranchTable = this.formatTimeResult(currentKey, currentResult);
 
     const diffTable = this.formatCompareResult(
       "Compare",
