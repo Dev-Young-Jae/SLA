@@ -8372,12 +8372,12 @@ class SizeLimit {
             this.formatTime(current.total)
         ];
     }
-    formatCompareResult(name, base, current) {
+    formatCompareResult(name, current, base) {
         return [
             name,
-            this.formaComparetLine(this.formatBytes(base.size - current.size), this.formatChange(base.size, current.size)),
-            this.formaComparetLine(this.formatBytes(base.size - current.size), this.formatChange(base.loading, current.loading)),
-            this.formaComparetLine(this.formatBytes(base.size - current.size), this.formatChange(base.running, current.running)),
+            this.formaComparetLine(this.formatBytes(current.size - base.size), this.formatChange(base.size, current.size)),
+            this.formaComparetLine(this.formatTime(current.loading - base.loading), this.formatChange(base.loading, current.loading)),
+            this.formaComparetLine(this.formatTime(current.running - base.running), this.formatChange(base.running, current.running)),
             this.formatTime(current.total)
         ];
     }
@@ -8413,8 +8413,8 @@ class SizeLimit {
         const currentKey = Object.keys(current).toString();
         const baseResult = base[baseKey];
         const currentResult = current[currentKey];
-        const prbranchTable = this.formatTimeResult(currentKey, baseResult);
-        const masterbranchTable = this.formatTimeResult(baseKey, currentResult);
+        const prbranchTable = this.formatTimeResult(baseKey, baseResult);
+        const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
         const diffTable = this.formatCompareResult("Compare", currentResult, baseResult);
         return [header, masterbranchTable, prbranchTable, diffTable];
     }
