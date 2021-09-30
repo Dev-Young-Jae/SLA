@@ -8406,13 +8406,19 @@ class SizeLimit {
     formatResults(base, current) {
         const names = [...new Set([...Object.keys(base), ...Object.keys(current)])];
         const isSize = names.some((name) => current[name] && current[name].total === undefined);
+        console.log("base >>", base);
+        console.log("current >>", current);
         const header = isSize
             ? SizeLimit.SIZE_RESULTS_HEADER
             : SizeLimit.TIME_RESULTS_HEADER;
         const currentKey = Object.keys(current).toString();
         const baseKey = Object.keys(base).toString();
+        console.log("baseKey >>", baseKey);
+        console.log("currentKey >>", currentKey);
         const currentResult = current[currentKey];
         const baseResult = base[baseKey];
+        console.log("baseResult >>", baseResult);
+        console.log("currentResult >>", currentResult);
         const masterbranchTable = this.formatTimeResult(baseKey, baseResult);
         const prbranchTable = this.formatTimeResult(currentKey, currentResult);
         const diffTable = this.formatCompareResult("Compare", currentResult, baseResult);
