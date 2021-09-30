@@ -8351,10 +8351,10 @@ class SizeLimit {
         const formatted = (Math.sign(value) * Math.ceil(Math.abs(value) * 100)) / 100;
         if (value > 0) {
             if (formatted > 50) {
-                return `✚${formatted}% ⏫`;
+                return `✚${formatted}% 🔺🔺`;
             }
             else {
-                return `✚${formatted}% 🔼`;
+                return `✚${formatted}% 🔺`;
             }
         }
         if (value === 0) {
