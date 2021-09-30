@@ -79,8 +79,6 @@ async function run() {
       );
       throw error;
     }
-    console.log("current >> ", current);
-    console.log("base >> ", base);
     const body = [
       SIZE_LIMIT_HEADING,
       table(limit.formatResults(base, current))

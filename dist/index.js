@@ -2401,8 +2401,6 @@ function run() {
                 console.log("Error parsing size-limit output. The output should be a json.");
                 throw error;
             }
-            console.log("current >> ", current);
-            console.log("base >> ", base);
             const body = [
                 SIZE_LIMIT_HEADING,
                 markdown_table_1.default(limit.formatResults(base, current))
@@ -8354,20 +8352,23 @@ class SizeLimit {
     }
     formatChange(base = 0, current = 0) {
         if (base === 0) {
-            return "+100% 📈";
+            return "+100% ⬆️";
         }
         const value = ((current - base) / base) * 100;
         const formatted = (Math.sign(value) * Math.ceil(Math.abs(value) * 100)) / 100;
         if (value > 0) {
-            return `+${formatted}% 📈`;
+            return `+${formatted}% ⬆️`;
         }
         if (value === 0) {
             return `${formatted}%`;
         }
-        return `${formatted}% 📉`;
+        return `${formatted}% ⬇️`;
     }
     formatLine(value) {
         return `${value}`;
+    }
+    formaComparetLine(value, change) {
+        return `${value} (${change})`;
     }
     formatTimeResult(name, current) {
         return [
@@ -8378,12 +8379,12 @@ class SizeLimit {
             this.formatTime(current.total)
         ];
     }
-    formatDiffResult(name, base, current) {
+    formatCompareResult(name, base, current) {
         return [
             name,
-            this.formatLine(this.formatChange(base.size, current.size)),
-            this.formatLine(this.formatChange(base.loading, current.loading)),
-            this.formatLine(this.formatChange(base.running, current.running)),
+            this.formaComparetLine(this.formatBytes(base.size - current.size), this.formatChange(base.size, current.size)),
+            this.formaComparetLine(this.formatBytes(base.size - current.size), this.formatChange(base.loading, current.loading)),
+            this.formaComparetLine(this.formatBytes(base.size - current.size), this.formatChange(base.running, current.running)),
             this.formatTime(current.total)
         ];
     }
@@ -8419,10 +8420,10 @@ class SizeLimit {
         const currentKey = Object.keys(current).toString();
         const baseResult = base[baseKey];
         const currentResult = current[currentKey];
-        const prbranchTable = this.formatTimeResult(baseKey, baseResult);
-        const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
-        const diffTable = this.formatDiffResult("diff", baseResult, currentResult);
-        return [header, prbranchTable, masterbranchTable, diffTable];
+        const prbranchTable = this.formatTimeResult(currentKey, baseResult);
+        const masterbranchTable = this.formatTimeResult(baseKey, currentResult);
+        const diffTable = this.formatCompareResult("Compare", currentResult, baseResult);
+        return [header, masterbranchTable, prbranchTable, , diffTable];
     }
 }
 SizeLimit.SIZE_RESULTS_HEADER = ["Branch", "Size"];

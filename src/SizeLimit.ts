@@ -42,7 +42,7 @@ class SizeLimit {
 
   private formatChange(base: number = 0, current: number = 0): string {
     if (base === 0) {
-      return "+100% 📈";
+      return "+100% ⬆️";
     }
 
     const value = ((current - base) / base) * 100;
@@ -50,18 +50,22 @@ class SizeLimit {
       (Math.sign(value) * Math.ceil(Math.abs(value) * 100)) / 100;
 
     if (value > 0) {
-      return `+${formatted}% 📈`;
+      return `+${formatted}% ⬆️`;
     }
 
     if (value === 0) {
       return `${formatted}%`;
     }
 
-    return `${formatted}% 📉`;
+    return `${formatted}% ⬇️`;
   }
 
   private formatLine(value: string) {
     return `${value}`;
+  }
+
+  private formaComparetLine(value: string, change: string) {
+    return `${value} (${change})`;
   }
 
   private formatTimeResult(name: string, current: IResult): Array<string> {
@@ -74,12 +78,21 @@ class SizeLimit {
     ];
   }
 
-  private formatDiffResult(name: string, base: IResult, current: IResult) {
+  private formatCompareResult(name: string, base: IResult, current: IResult) {
     return [
       name,
-      this.formatLine(this.formatChange(base.size, current.size)),
-      this.formatLine(this.formatChange(base.loading, current.loading)),
-      this.formatLine(this.formatChange(base.running, current.running)),
+      this.formaComparetLine(
+        this.formatBytes(base.size - current.size),
+        this.formatChange(base.size, current.size)
+      ),
+      this.formaComparetLine(
+        this.formatBytes(base.size - current.size),
+        this.formatChange(base.loading, current.loading)
+      ),
+      this.formaComparetLine(
+        this.formatBytes(base.size - current.size),
+        this.formatChange(base.running, current.running)
+      ),
       this.formatTime(current.total)
     ];
   }
@@ -139,13 +152,17 @@ class SizeLimit {
     const baseResult = base[baseKey];
     const currentResult = current[currentKey];
 
-    const prbranchTable = this.formatTimeResult(baseKey, baseResult);
+    const prbranchTable = this.formatTimeResult(currentKey, baseResult);
 
-    const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
+    const masterbranchTable = this.formatTimeResult(baseKey, currentResult);
 
-    const diffTable = this.formatDiffResult("diff", baseResult, currentResult);
+    const diffTable = this.formatCompareResult(
+      "Compare",
+      currentResult,
+      baseResult
+    );
 
-    return [header, prbranchTable, masterbranchTable, diffTable];
+    return [header, masterbranchTable, prbranchTable, , diffTable];
   }
 }
 export default SizeLimit;
