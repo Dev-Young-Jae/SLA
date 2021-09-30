@@ -143,10 +143,6 @@ class SizeLimit {
   ): Array<Array<string>> {
     const names = [...new Set([...Object.keys(base), ...Object.keys(current)])];
 
-    console.log("names >>", names);
-    console.log("base >>", base);
-    console.log("current >>", current);
-
     const isSize = names.some(
       (name: string) => current[name] && current[name].total === undefined
     );
@@ -154,9 +150,15 @@ class SizeLimit {
       ? SizeLimit.SIZE_RESULTS_HEADER
       : SizeLimit.TIME_RESULTS_HEADER;
 
+    const baseKey = Object.keys(base).toString();
+    const currentKey = Object.keys(current).toString();
+
+    console.log("bk >>", baseKey);
+    console.log("ck >>", currentKey);
+
     const fields = names.map((name: string) => {
-      const baseResult = base[name];
-      const currentResult = current[name];
+      const baseResult = base[baseKey];
+      const currentResult = current[currentKey];
 
       if (isSize) {
         return this.formatSizeResult(name, baseResult, currentResult);
