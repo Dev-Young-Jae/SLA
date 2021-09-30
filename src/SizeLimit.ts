@@ -138,9 +138,6 @@ class SizeLimit {
       ? SizeLimit.SIZE_RESULTS_HEADER
       : SizeLimit.TIME_RESULTS_HEADER;
 
-    console.log("base >> ", base);
-    console.log("current >> ", current);
-
     const currentKey = Object.keys(current).toString();
     const baseKey = Object.keys(base).toString();
 

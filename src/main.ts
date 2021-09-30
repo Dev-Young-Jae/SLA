@@ -73,6 +73,8 @@ async function run() {
     try {
       current = limit.parseResults(pr.base.ref, output);
       base = limit.parseResults(null, baseOutput);
+      console.log("base >> ", base);
+      console.log("current >> ", current);
     } catch (error) {
       console.log(
         "Error parsing size-limit output. The output should be a json."

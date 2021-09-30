@@ -2396,6 +2396,8 @@ function run() {
             try {
                 current = limit.parseResults(pr.base.ref, output);
                 base = limit.parseResults(null, baseOutput);
+                console.log("base >> ", base);
+                console.log("current >> ", current);
             }
             catch (error) {
                 console.log("Error parsing size-limit output. The output should be a json.");
@@ -8409,8 +8411,6 @@ class SizeLimit {
         const header = isSize
             ? SizeLimit.SIZE_RESULTS_HEADER
             : SizeLimit.TIME_RESULTS_HEADER;
-        console.log("base >> ", base);
-        console.log("current >> ", current);
         const currentKey = Object.keys(current).toString();
         const baseKey = Object.keys(base).toString();
         const currentResult = current[currentKey];
