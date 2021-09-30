@@ -8408,6 +8408,7 @@ class SizeLimit {
     }
     formatResults(base, current) {
         const names = [...new Set([...Object.keys(base), ...Object.keys(current)])];
+        console.log("names >>", names);
         console.log("base >>", base);
         console.log("current >>", current);
         const isSize = names.some((name) => current[name] && current[name].total === undefined);
