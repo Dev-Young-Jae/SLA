@@ -8366,21 +8366,15 @@ class SizeLimit {
         }
         return `${formatted}% 📉`;
     }
-    formatLine(value, change) {
-        return `${value} (${change})`;
+    formatLine(value) {
+        return `${value}`;
     }
-    formatSizeResult(name, base, current) {
+    formatTimeResult(name, current) {
         return [
             name,
-            this.formatLine(this.formatBytes(current.size), this.formatChange(base.size, current.size))
-        ];
-    }
-    formatTimeResult(name, base, current) {
-        return [
-            name,
-            this.formatLine(this.formatBytes(current.size), this.formatChange(base.size, current.size)),
-            this.formatLine(this.formatTime(current.loading), this.formatChange(base.loading, current.loading)),
-            this.formatLine(this.formatTime(current.running), this.formatChange(base.running, current.running)),
+            this.formatLine(this.formatBytes(current.size)),
+            this.formatLine(this.formatTime(current.loading)),
+            this.formatLine(this.formatTime(current.running)),
             this.formatTime(current.total)
         ];
     }
@@ -8416,8 +8410,8 @@ class SizeLimit {
         const currentKey = Object.keys(current).toString();
         const baseResult = base[baseKey];
         const currentResult = current[currentKey];
-        const prbranchTable = this.formatTimeResult(baseKey, baseResult, currentResult);
-        const masterbranchTable = this.formatTimeResult(currentKey, currentResult, baseResult);
+        const prbranchTable = this.formatTimeResult(baseKey, baseResult);
+        const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
         return [header, prbranchTable, masterbranchTable];
     }
 }
