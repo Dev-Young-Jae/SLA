@@ -153,20 +153,29 @@ class SizeLimit {
     const baseKey = Object.keys(base).toString();
     const currentKey = Object.keys(current).toString();
 
-    console.log("bk >>", baseKey);
-    console.log("ck >>", currentKey);
+    const baseResult = base[baseKey];
+    const currentResult = current[currentKey];
+
+    const prbranchTable = this.formatTimeResult(
+      baseKey,
+      baseResult,
+      currentResult
+    );
+
+    const masterbranchTable = this.formatTimeResult(
+      currentKey,
+      baseResult,
+      currentResult
+    );
 
     const fields = names.map((name: string) => {
-      const baseResult = base[baseKey];
-      const currentResult = current[currentKey];
-
       if (isSize) {
         return this.formatSizeResult(name, baseResult, currentResult);
       }
       return this.formatTimeResult(name, baseResult, currentResult);
     });
 
-    return [header, ...fields];
+    return [header, prbranchTable, masterbranchTable];
   }
 }
 export default SizeLimit;
