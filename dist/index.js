@@ -8409,12 +8409,14 @@ class SizeLimit {
         const header = isSize
             ? SizeLimit.SIZE_RESULTS_HEADER
             : SizeLimit.TIME_RESULTS_HEADER;
-        const baseKey = Object.keys(base).toString();
+        console.log("base >> ", base);
+        console.log("current >> ", current);
         const currentKey = Object.keys(current).toString();
-        const baseResult = base[baseKey];
+        const baseKey = Object.keys(base).toString();
         const currentResult = current[currentKey];
-        const prbranchTable = this.formatTimeResult(baseKey, baseResult);
+        const baseResult = base[baseKey];
         const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
+        const prbranchTable = this.formatTimeResult(baseKey, baseResult);
         const diffTable = this.formatCompareResult("Compare", currentResult, baseResult);
         return [header, masterbranchTable, prbranchTable, diffTable];
     }
