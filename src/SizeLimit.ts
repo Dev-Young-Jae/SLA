@@ -74,6 +74,16 @@ class SizeLimit {
     ];
   }
 
+  private formatDiffResult(name: string, base: IResult, current: IResult) {
+    return [
+      name,
+      this.formatLine(this.formatChange(base.size, current.size)),
+      this.formatLine(this.formatChange(base.loading, current.loading)),
+      this.formatLine(this.formatChange(base.running, current.running)),
+      this.formatTime(current.total)
+    ];
+  }
+
   parseResults(branch: string, output: string): { [name: string]: IResult } {
     const results = JSON.parse(output);
 
@@ -133,7 +143,9 @@ class SizeLimit {
 
     const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
 
-    return [header, prbranchTable, masterbranchTable];
+    const diffTable = this.formatDiffResult("diff", baseResult, currentResult);
+
+    return [header, prbranchTable, masterbranchTable, diffTable];
   }
 }
 export default SizeLimit;

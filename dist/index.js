@@ -8378,6 +8378,15 @@ class SizeLimit {
             this.formatTime(current.total)
         ];
     }
+    formatDiffResult(name, base, current) {
+        return [
+            name,
+            this.formatLine(this.formatChange(base.size, current.size)),
+            this.formatLine(this.formatChange(base.loading, current.loading)),
+            this.formatLine(this.formatChange(base.running, current.running)),
+            this.formatTime(current.total)
+        ];
+    }
     parseResults(branch, output) {
         const results = JSON.parse(output);
         return results.reduce((current, result) => {
@@ -8412,7 +8421,8 @@ class SizeLimit {
         const currentResult = current[currentKey];
         const prbranchTable = this.formatTimeResult(baseKey, baseResult);
         const masterbranchTable = this.formatTimeResult(currentKey, currentResult);
-        return [header, prbranchTable, masterbranchTable];
+        const diffTable = this.formatDiffResult("diff", baseResult, currentResult);
+        return [header, prbranchTable, masterbranchTable, diffTable];
     }
 }
 SizeLimit.SIZE_RESULTS_HEADER = ["Branch", "Size"];
