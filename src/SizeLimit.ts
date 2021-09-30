@@ -9,14 +9,6 @@ interface IResult {
   total?: number;
 }
 
-const EmptyResult = {
-  name: "-",
-  size: 0,
-  running: 0,
-  loading: 0,
-  total: 0
-};
-
 class SizeLimit {
   static SIZE_RESULTS_HEADER = ["Branch", "Size"];
 
@@ -162,7 +154,7 @@ class SizeLimit {
       baseResult
     );
 
-    return [header, masterbranchTable, prbranchTable, , diffTable];
+    return [header, masterbranchTable, prbranchTable, diffTable];
   }
 }
 export default SizeLimit;

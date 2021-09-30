@@ -8333,13 +8333,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
 const bytes_1 = __importDefault(__webpack_require__(63));
-const EmptyResult = {
-    name: "-",
-    size: 0,
-    running: 0,
-    loading: 0,
-    total: 0
-};
 class SizeLimit {
     formatBytes(size) {
         return bytes_1.default.format(size, { unitSeparator: " " });
@@ -8423,7 +8416,7 @@ class SizeLimit {
         const prbranchTable = this.formatTimeResult(currentKey, baseResult);
         const masterbranchTable = this.formatTimeResult(baseKey, currentResult);
         const diffTable = this.formatCompareResult("Compare", currentResult, baseResult);
-        return [header, masterbranchTable, prbranchTable, , diffTable];
+        return [header, masterbranchTable, prbranchTable, diffTable];
     }
 }
 SizeLimit.SIZE_RESULTS_HEADER = ["Branch", "Size"];
