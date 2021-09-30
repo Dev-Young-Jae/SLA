@@ -8417,13 +8417,7 @@ class SizeLimit {
         const baseResult = base[baseKey];
         const currentResult = current[currentKey];
         const prbranchTable = this.formatTimeResult(baseKey, baseResult, currentResult);
-        const masterbranchTable = this.formatTimeResult(currentKey, baseResult, currentResult);
-        const fields = names.map((name) => {
-            if (isSize) {
-                return this.formatSizeResult(name, baseResult, currentResult);
-            }
-            return this.formatTimeResult(name, baseResult, currentResult);
-        });
+        const masterbranchTable = this.formatTimeResult(currentKey, currentResult, baseResult);
         return [header, prbranchTable, masterbranchTable];
     }
 }
