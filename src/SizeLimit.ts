@@ -34,7 +34,7 @@ class SizeLimit {
 
   private formatChange(base: number = 0, current: number = 0): string {
     if (base === 0) {
-      return "+100% ⬆️";
+      return "+100% 🔺";
     }
 
     const value = ((current - base) / base) * 100;
@@ -42,14 +42,18 @@ class SizeLimit {
       (Math.sign(value) * Math.ceil(Math.abs(value) * 100)) / 100;
 
     if (value > 0) {
-      return `+${formatted}% ⬆️`;
+      if (formatted > 50) {
+        return `✚${formatted}% 🔺🔺`;
+      } else {
+        return `✚${formatted}% 🔺`;
+      }
     }
 
     if (value === 0) {
       return `${formatted}%`;
     }
 
-    return `${formatted}% ⬇️`;
+    return `${formatted}% 📉`;
   }
 
   private formatLine(value: string) {
@@ -134,8 +138,6 @@ class SizeLimit {
     const isSize = names.some(
       (name: string) => current[name] && current[name].total === undefined
     );
-    console.log("base >>", base);
-    console.log("current >>", current);
     const header = isSize
       ? SizeLimit.SIZE_RESULTS_HEADER
       : SizeLimit.TIME_RESULTS_HEADER;
@@ -143,14 +145,8 @@ class SizeLimit {
     const currentKey = Object.keys(current).toString();
     const baseKey = Object.keys(base).toString();
 
-    console.log("baseKey >>", baseKey);
-    console.log("currentKey >>", currentKey);
-
     const currentResult = current[currentKey];
     const baseResult = base[baseKey];
-
-    console.log("baseResult >>", baseResult);
-    console.log("currentResult >>", currentResult);
 
     const masterbranchTable = this.formatTimeResult(baseKey, baseResult);
     const prbranchTable = this.formatTimeResult(currentKey, currentResult);
