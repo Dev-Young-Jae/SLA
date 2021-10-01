@@ -76,3 +76,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           build_script: build
 ```
+
+4. pr을 요청하고 액션이 잘 돌아가는지 확인합니다.
+
+<hr/>
+
+다시 한 번 말하지만 [size-limit-action](https://github.com/andresz1/size-limit-action) 을 Remake 한 코드 입니다. 코드를 조금 수정하여 배포를 하였습니다.
